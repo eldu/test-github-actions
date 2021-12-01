@@ -9,8 +9,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Git commit 
         run:
-           echo "RECIPE=$(ls -t ./recipes | head -n1)" >> $GITHUB_ENV
+           echo "RECIPE='something'" >> $GITHUB_ENV
       - name: Catch git failure and send warning message to Slack API
         run: |
           echo "NEXT STEP"
+          echo "${{env.RECIPE}}"
           echo "Your conda build for ${{env.RECIPE}} was successful but your git actions to the main branch have failed. This is likely because this recipe already exists on the main branch and has been pushed to the combiocore channel already. Please check the recipes folder on the main branch and either first remove the folder sharing the same name and re-push to dev OR add versioning to the recipe folder name to make it distinct."
